@@ -1,17 +1,17 @@
 {
-  "name": "jq-web",
-  "version": "0.5.2",
+  "name": "jq-web-wasm",
+  "version": "0.5.3",
   "description": "a hack that makes jq run in the browser with emscripten.",
   "main": "dist/jq.wasm.js",
-  "files": [
-    "dist/jq.wasm.d.ts",
-    "dist/jq.wasm.js",
-    "dist/jq.wasm.wasm"
-  ],
+  "files": ["dist", "jq.wasm.d.ts"],
+  "exports": {
+    "./jq.wasm": "./dist/jq.wasm.min.js"
+  },
   "scripts": {
-    "copy-to-src": "rm -f src/*.js && cp node_modules/jq-web/*.js src/",
-    "copy-to-dist": "cp node_modules/jq-web/jq.wasm.wasm dist/",
-    "reformat": "esbuild src/jq.wasm.js --platform=node --format=cjs --target=node18 > dist/reformatted-jq.wasm.js"
+    "copy-js-to-src": "rm -f src/*.js && cp node_modules/jq-web/*.js src/",
+    "copy-wasm-to-dist": "cp node_modules/jq-web/jq.wasm.wasm dist/",
+    "reformat:jq.wasm.js": "esbuild node_modules/jq-web/jq.wasm.js --platform=node --format=cjs --target=node18 > dist/reformatted-jq.wasm.js",
+    "minify": "esbuild dist/jq.wasm.js --platform=node --format=cjs --target=node18 --minify > dist/jq.wasm.min.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,9 @@
     "url": "https://github.com/fiatjaf/jq-web/issues"
   },
   "homepage": "https://github.com/fiatjaf/jq-web#readme",
+  "engines": {
+    "node": ">=16"
+  },
   "devDependencies": {
     "esbuild": "^0.17.5",
     "jq-web": "^0.5.1"

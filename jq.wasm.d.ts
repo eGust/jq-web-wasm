@@ -1,4 +1,4 @@
-declare module 'jq-web/jq.wasm' {
+declare module 'jq-web-wasm/jq.wasm' {
   export const json: <R, T = object>(data: T, filter: string) => R;
   export const raw: (data: string, filter: string) => string;
   export const promised: {
